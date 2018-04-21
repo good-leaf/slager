@@ -15,8 +15,10 @@
     log/3,
     format/2,
     skip_log/1,
-    skip_log/2,
+    skip_log/2
+]).
 
+-export([
     log_format_test/0,
     log_format_loop/1,
     log_press_format_test/2,
@@ -24,6 +26,7 @@
     log_press_test/2,
     log_loop/1
 ]).
+
 log(Log, Level, Format) ->
     Log:format(Level, Format).
 
@@ -42,6 +45,9 @@ skip_log(_Format, _Message) ->
 skip_log(_Format) ->
     ok.
 
+
+
+%%--------------------------------------------------------------------------------------------
 log_test() ->
     Data = <<"There`s not a day goes by I don`t feel regret. Not because I`m in here,
     or because you think I should. I look back on the way I was then. Then a young,
