@@ -17,6 +17,9 @@
     skip_log/1,
     skip_log/2,
 
+    log_format_test/0,
+    log_format_loop/1,
+    log_press_format_test/2,
     log_test/0,
     log_press_test/2,
     log_loop/1
@@ -71,4 +74,40 @@ log_press_test(ProcessNum, LoopNum) ->
     lists:foreach(fun(_N) ->
             spawn(slager, log_loop, [LoopNum])
         end,
+        lists:seq(1, ProcessNum)).
+
+
+log_format_test() ->
+    %设置动态变量
+    lager:md([{key, <<"default">>}]),
+    erlang:put(key, <<"key">>),
+    Data = <<"There`s not a day goes by I don`t feel regret. Not because I`m in here,
+    or because you think I should. I look back on the way I was then. Then a young,
+    stupid kid who committed that terrible crime. I want to talk to him. I want to try and
+    talk some sense to him, tell him the way things are. But I can`t. That kid`s long gone
+    and this old man is all that`s left. I got to live with that. Rehabilitated?
+    It`s just a bull... word. So you go on and stamp your form, sorry, and stop wasting my time.
+    Because to tell you the truth, I don`t give a shit.">>,
+    %需要字符传形式
+    Kv = log:kv_generate([
+        {<<"trace_id">>, 100000000},
+        {<<"tenant_id">>, <<"tenant_id">>},
+        {<<"app_call_uuid">>, app_call_uuid},
+        {<<"app_uuid">>, "app_uuid"}
+    ]),
+    ?DEBUG("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
+    ?INFO("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
+    ?WARNING("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
+    ?ERROR("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]).
+
+log_format_loop(0) ->
+    ok;
+log_format_loop(Num) ->
+    log_format_test(),
+    log_format_loop(Num -1).
+
+log_press_format_test(ProcessNum, LoopNum) ->
+    lists:foreach(fun(_N) ->
+        spawn(slager, log_format_loop, [LoopNum])
+                  end,
         lists:seq(1, ProcessNum)).
