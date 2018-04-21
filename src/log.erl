@@ -24,7 +24,7 @@ to_binary(X) when is_list(X) ->
         true ->
             list_to_binary(X);
         false ->
-            jsx:encode(X)
+            term_to_binary(X)
     end.
 
 format(Level, Format) ->
