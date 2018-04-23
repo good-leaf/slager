@@ -101,10 +101,10 @@ log_format_test() ->
         {<<"app_call_uuid">>, app_call_uuid},
         {<<"app_uuid">>, "app_uuid"}
     ]),
-    ?DEBUG("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
-    ?INFO("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
-    ?WARNING("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
-    ?ERROR("#XMDT#{~p}#XMDT# Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]).
+    ?DEBUG("~p Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
+    ?INFO("~p Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
+    ?WARNING("~p Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
+    ?ERROR("~p Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]).
 
 log_format_loop(0) ->
     ok;
