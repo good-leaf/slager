@@ -89,8 +89,7 @@
     end).
 -define(ERROR(Format),
     begin
-        case application:get_env(
-            ?APP_NAME, type, lager) of
+        case application:get_env(?APP_NAME, type, lager) of
             lager ->
                 lager:error(slager:log(?LOGFORMAT, error, Format));
             slager ->
