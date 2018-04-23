@@ -17,8 +17,8 @@
 
 to_binary(X) when is_integer(X) -> integer_to_binary(X);
 to_binary(X) when is_float(X) -> float_to_binary(X);
-to_binary(X) when is_atom(X) -> atom_to_binary(X, utf8);
 to_binary(X) when is_binary(X) -> case X of <<>> -> <<" ">>;X -> X end;
+to_binary(X) when is_atom(X) -> atom_to_binary(X, utf8);
 to_binary(X) when is_list(X) ->
     case io_lib:printable_list(X) of
         true ->

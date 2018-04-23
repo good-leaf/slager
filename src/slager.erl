@@ -99,7 +99,9 @@ log_format_test() ->
         {<<"trace_id">>, 100000000},
         {<<"tenant_id">>, <<"tenant_id">>},
         {<<"app_call_uuid">>, app_call_uuid},
-        {<<"app_uuid">>, "app_uuid"}
+        {<<"app_uuid">>, "app_uuid"},
+        {<<"service_uuid">>, <<>>},
+        {<<"uuid">>, <<"uuid">>}
     ]),
     ?DEBUG("~p Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
     ?INFO("~p Two parameters of the log output, the application name is slager,data:~p", [Kv, Data]),
