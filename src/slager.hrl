@@ -8,11 +8,10 @@
 %%%-------------------------------------------------------------------
 -author("yangyajun03").
 
--define(APP_NAME, slager).
--define(LOGFORMAT, application:get_env(?APP_NAME, format, slager)).
+-define(LOGFORMAT, application:get_env(slager, format, slager)).
 -define(DEBUG(Format, Message),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:debug(slager:log(?LOGFORMAT, debug, Format), Message);
             slager ->
@@ -23,7 +22,7 @@
     end).
 -define(INFO(Format, Message),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:info(slager:log(?LOGFORMAT, info, Format), Message);
             slager ->
@@ -34,7 +33,7 @@
     end).
 -define(WARNING(Format, Message),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:warning(slager:log(?LOGFORMAT, warning, Format), Message);
             slager ->
@@ -45,7 +44,7 @@
     end).
 -define(ERROR(Format, Message),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:error(slager:log(?LOGFORMAT, error, Format), Message);
             slager ->
@@ -56,7 +55,7 @@
     end).
 -define(DEBUG(Format),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:debug(slager:log(?LOGFORMAT, debug, Format));
             slager ->
@@ -67,7 +66,7 @@
     end).
 -define(INFO(Format),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:debug(slager:log(?LOGFORMAT, info, Format));
             slager ->
@@ -78,7 +77,7 @@
     end).
 -define(WARNING(Format),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:warning(slager:log(?LOGFORMAT, warning, Format));
             slager ->
@@ -89,7 +88,7 @@
     end).
 -define(ERROR(Format),
     begin
-        case application:get_env(?APP_NAME, type, lager) of
+        case application:get_env(slager, type, lager) of
             lager ->
                 lager:error(slager:log(?LOGFORMAT, error, Format));
             slager ->

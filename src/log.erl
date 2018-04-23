@@ -47,3 +47,4 @@ kv_generate(DataList) ->
             BV = to_binary(V),
             <<Acc/binary, " ", BK/binary, "=", BV/binary>> end, <<>>, DataList),
     binary_to_atom(<<"#XMDT#{", Kv/binary, "}#XMDT#">>, utf8).
+
