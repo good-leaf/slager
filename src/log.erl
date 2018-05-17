@@ -29,8 +29,9 @@ to_binary(X) when is_list(X) ->
 
 format(Level, Format) ->
     {ok, Host} = inet:gethostname(),
-    LogEnv = "test",
-    AppKey = "slager",
+    LogEnv = application:get_env(slager, log_env, "log_env"),
+    AppKey = application:get_env(slager, app_key, "app_key"),
+
     Pid = pid_to_list(self()),
     Host ++ " " ++ AppKey ++ " " ++ "[" ++ atom_to_list(Level) ++ "]" ++ " " ++ Pid ++ " "
         ++ LogEnv ++ " " ++ Format.
