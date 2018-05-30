@@ -68,9 +68,9 @@
     begin
         case application:get_env(slager, type, lager) of
             lager ->
-                lager:debug(slager:log(?LOGFORMAT, info, Format));
+                lager:info(slager:log(?LOGFORMAT, info, Format));
             slager ->
-                sdebug:debug(slager:log(?LOGFORMAT, info, Format));
+                sdebug:info(slager:log(?LOGFORMAT, info, Format));
             skip ->
                 slager:skip_log(slager:log(?LOGFORMAT, info, Format))
         end
