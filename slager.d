@@ -1,3 +1,3 @@
-src/slager.erl:: src/slager.hrl; @touch $@
+src/slager.erl:: include/../include/slager.hrl; @touch $@
 
 COMPILE_FIRST +=

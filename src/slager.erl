@@ -1,21 +1,15 @@
-%%%-------------------------------------------------------------------
-%%% @author yangyajun03
-%%% @copyright (C) 2018, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 20. 四月 2018 下午5:48
-%%%-------------------------------------------------------------------
--module(slager).
--author("yangyajun03").
 
--include("slager.hrl").
+-module(slager).
+
+-include("../include/slager.hrl").
 %% API
 -export([
     log/3,
     format/2,
     skip_log/1,
-    skip_log/2
+    skip_log/2,
+    much_trace/1,
+    hash_log/4
 ]).
 
 -export([
@@ -45,6 +39,38 @@ skip_log(_Format, _Message) ->
 skip_log(_Format) ->
     ok.
 
+much_trace(FileName) ->
+    FileSize  = application:get_env(slager, file_size, 100),
+    FileNum  = application:get_env(slager, file_num, 30),
+    lager_trace(much0_lager_event, much0, FileName, FileSize, FileNum),
+    lager_trace(much1_lager_event, much1, FileName, FileSize, FileNum),
+    lager_trace(much2_lager_event, much2, FileName, FileSize, FileNum),
+    lager_trace(much3_lager_event, much3, FileName, FileSize, FileNum),
+    lager_trace(much4_lager_event, much4, FileName, FileSize, FileNum).
+
+lager_trace(Sink, Type, FileName, FileSize, Count) ->
+    {ok, Service} = inet:gethostname(),
+    AppKey  = application:get_env(slager, app_key, "app_key"),
+    LogEnv = application:get_env(slager, log_env, "log_env"),
+    lager:trace_file(atom_to_list(Type) ++ "/" ++ atom_to_list(FileName) ++ ".log",
+        [{Type, FileName}, {sink, Sink}], info,
+        [
+            {size, FileSize * 1024 * 1024},
+            {count, Count},
+            {formatter_config, [date, " ", time, " ",
+                Service, " ", AppKey, " [info] ",
+                atom_to_list(FileName), " ", LogEnv, " ", message, "\n"]
+            }
+        ]).
+
+hash_log(HashKey, FileName, Format, Val) ->
+    log_msg(erlang:phash2(HashKey, 5), FileName, Format, Val).
+
+log_msg(0, Name, Format, Val) -> much0:info([{much0, Name}], Format, [Val]);
+log_msg(1, Name, Format, Val) -> much1:info([{much1, Name}], Format, [Val]);
+log_msg(2, Name, Format, Val) -> much2:info([{much2, Name}], Format, [Val]);
+log_msg(3, Name, Format, Val) -> much3:info([{much3, Name}], Format, [Val]);
+log_msg(4, Name, Format, Val) -> much4:info([{much4, Name}], Format, [Val]).
 
 
 %%--------------------------------------------------------------------------------------------

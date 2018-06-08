@@ -1,14 +1,8 @@
-%%%-------------------------------------------------------------------
-%%% @author yangyajun03
-%%% @copyright (C) 2018, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 20. 四月 2018 下午5:34
-%%%-------------------------------------------------------------------
--author("yangyajun03").
 
 -define(LOGFORMAT, application:get_env(slager, format, slager)).
+
+-define(HLOG(HashKey, FileName, Format, Message), slager:hash_log(HashKey, FileName, Format, Message)).
+
 -define(DEBUG(Format, Message),
     begin
         case application:get_env(slager, type, lager) of
